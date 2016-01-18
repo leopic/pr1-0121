@@ -5,9 +5,10 @@
     <title>Proyecto Uno:paso-01</title>
     <link rel="stylesheet" href="bootstrap.min.css">
     <script src="angular.min.js"></script>
+    <script src="controlador.js"></script>
 </head>
 <body>
-<div ng-app ng-init="cantidad=1;costo=5">
+<div ng-app="factura1" ng-controller="FacturaCtrl as factura">
     <div class="col-md-4 col-md-offset-4">
         <div class="page-header">
             <h1>Factura</h1>
@@ -16,18 +17,32 @@
             <div class="form-group">
                 <label for="cantidad" class="control-label col-md-2">Cantidad</label>
                 <div class="col-md-10">
-                    <input type="number" min="0" ng-model="cantidad" class="form-control" id="cantidad"/>
+                    <input type="number" min="0" ng-model="factura.cantidad" class="form-control" id="cantidad"/>
                 </div>
             </div>
             <div class="form-group">
                 <label for="costo" class="control-label col-md-2">Costo</label>
-                <div class="col-md-10">
-                    <input type="number" min="0" ng-model="costo" class="form-control" id="costo"/>
+                <div class="col-md-5">
+                    <input type="number" min="0" ng-model="factura.costo" class="form-control" id="costo"/>
+                </div>
+                <div class="col-md-5">
+                    <select ng-model="factura.monedaDeEntrada" class="form-control">
+                        <option ng-repeat="moneda in factura.monedas">{{moneda}}</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-2"><strong>Total</strong></label>
-                <span class="form-control-static col-md-10"><strong>{{cantidad * costo | currency}}</strong></span>
+                <span class="form-control-static col-md-10">
+                    <span ng-repeat="moneda in factura.monedas">
+                      {{ factura.calcularTotal(moneda) | currency:moneda }}
+                    </span>
+                </span>
+            </div>
+            <div class="form-group">
+                <div class="col-md-4 col-md-offset-2">
+                    <button class="btn btn-primary" ng-click="factura.pagar()">Pagar</button>
+                </div>
             </div>
         </form>
     </div>
