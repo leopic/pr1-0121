@@ -1,4 +1,4 @@
-angular.module('facturas2', ['finanzas2'])
+angular.module('facturas3', ['finanzas3'])
     .controller('FacturaCtrl', ['FinancieroServicio', function(FinancieroServicio) {
         this.cantidad = 1;
         this.costo = 2;
